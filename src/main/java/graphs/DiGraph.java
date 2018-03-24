@@ -1,14 +1,17 @@
 package graphs;
 
+import lombok.Getter;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Graph {
+@Getter
+public class DiGraph {
 
     private List<Vertex> vertices;
     private List<Edge> edges;
 
-    public Graph(List<Vertex> vertices, List<Edge> edges) {
+    public DiGraph(List<Vertex> vertices, List<Edge> edges) {
         this.vertices = vertices;
         this.edges = edges;
     }
@@ -19,6 +22,14 @@ public class Graph {
 
     public int E() {
         return edges.size();
+    }
+
+    public List<Vertex> getAdj(Vertex v) {
+        Vertex vertex = vertices.get(vertices.indexOf(v));
+        return edges.stream()
+                .filter(edge -> edge.getHead().equals(vertex))
+                .map(Edge::getTail)
+                .collect(Collectors.toList());
     }
 
     public void addVertex(Vertex v) {
@@ -46,14 +57,9 @@ public class Graph {
         edges.remove(e);
     }
 
-    private boolean edgeExists(Vertex v, Vertex w) {
-        long numFoundEdges = edges.stream()
-                .filter(edge ->
-                        (edge.getHead().equals(v) && edge.getTail().equals(w)) ||
-                                (edge.getHead().equals(w) && edge.getTail().equals(v))
-                )
-                .count();
-        return numFoundEdges > 0;
+    private boolean edgeExists(Vertex head, Vertex tail) {
+        return edges.stream()
+                .anyMatch(edge -> edge.getHead().equals(head) && edge.getTail().equals(tail));
     }
 
     private List<Edge> getEdgesByVertex(Vertex v) {
