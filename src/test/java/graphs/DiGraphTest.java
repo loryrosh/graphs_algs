@@ -1,6 +1,7 @@
 package graphs;
 
 import graphs.algos.dfs.DFS;
+import graphs.algos.dfs.DfsWithPathTo;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,6 +9,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class DiGraphTest {
@@ -75,7 +77,19 @@ public class DiGraphTest {
         Assert.assertEquals(9, dfs.getCounter());
     }
 
+    @Test
+    public void testDfsWithPathTo() {
+        DfsWithPathTo dfsWithPathTo = new DfsWithPathTo(diGraph, diGraph.getVertices().get(0));
+        Integer[] path = dfsWithPathTo.pathTo(diGraph.getVertices().get(5));
+        Assert.assertEquals(2, path.length - 1);
 
+        path = dfsWithPathTo.pathTo(diGraph.getVertices().get(7));
+        Assert.assertEquals(0, path.length - 1);
+
+        dfsWithPathTo = new DfsWithPathTo(diGraph, diGraph.getVertices().get(6));
+        path = dfsWithPathTo.pathTo(diGraph.getVertices().get(5));
+        Assert.assertEquals(3, path.length - 1);
+    }
 
     private List<Edge> createEdges(List<Vertex> vertices) {
         LinkedList<Edge> edges = new LinkedList<>();
