@@ -6,10 +6,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class DiGraphTest {
@@ -58,16 +56,6 @@ public class DiGraphTest {
         Assert.assertEquals(12, diGraph.E());
     }
 
-    private List<Vertex> createVertices() {
-        List<Vertex> vertices = new LinkedList<>();
-
-        Stream.iterate(0, n -> n + 1)
-                .limit(9)
-                .forEach(i -> vertices.add(new Vertex(i)));
-
-        return vertices;
-    }
-
     @Test
     public void testDfs() {
         DFS dfs = new DFS(diGraph, diGraph.getVertices().get(0));
@@ -89,6 +77,16 @@ public class DiGraphTest {
         dfsWithPathTo = new DfsWithPathTo(diGraph, diGraph.getVertices().get(6));
         path = dfsWithPathTo.pathTo(diGraph.getVertices().get(5));
         Assert.assertEquals(3, path.length - 1);
+    }
+
+    private List<Vertex> createVertices() {
+        List<Vertex> vertices = new LinkedList<>();
+
+        Stream.iterate(0, n -> n + 1)
+                .limit(9)
+                .forEach(i -> vertices.add(new Vertex(i)));
+
+        return vertices;
     }
 
     private List<Edge> createEdges(List<Vertex> vertices) {
