@@ -25,9 +25,8 @@ public class DiGraph {
     }
 
     public List<Vertex> getAdj(Vertex v) {
-        Vertex vertex = vertices.get(vertices.indexOf(v));
         return edges.stream()
-                .filter(edge -> edge.getHead().equals(vertex))
+                .filter(edge -> edge.getHead().equals(v))
                 .map(Edge::getTail)
                 .collect(Collectors.toList());
     }
@@ -37,7 +36,7 @@ public class DiGraph {
     }
 
     public void delVertex(Vertex v) {
-        Vertex vertexToRemove = vertices.get(vertices.indexOf(v));
+        Vertex vertexToRemove = vertices.get(v.getV());
         List<Edge> adjEdges = getEdgesByVertex(vertexToRemove);
         edges.removeAll(adjEdges);
         vertices.remove(vertexToRemove);

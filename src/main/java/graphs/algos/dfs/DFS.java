@@ -2,18 +2,19 @@ package graphs.algos.dfs;
 
 import graphs.DiGraph;
 import graphs.Vertex;
+import lombok.Getter;
 
+@Getter
 public class DFS {
-    private DiGraph g;
-    private Vertex s;
+    private DiGraph diGraph;
 
     private boolean[] connected;
     private int counter;
 
-    public DFS(DiGraph g, Vertex s) {
-        this.g = g;
-        this.s = s;
-        connected = new boolean[g.V()];
+    public DFS(DiGraph diGraph, Vertex s) {
+        this.diGraph = diGraph;
+        connected = new boolean[diGraph.V()];
+
         dfs(s);
     }
 
@@ -21,6 +22,11 @@ public class DFS {
         connected[v.getV()] = true;
         counter++;
 
-
+        diGraph.getAdj(diGraph.getVertices().get(v.getV()))
+                .forEach(w -> {
+                    if (!connected[w.getV()]) {
+                        dfs(w);
+                    }
+                });
     }
 }

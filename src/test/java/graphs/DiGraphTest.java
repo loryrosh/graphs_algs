@@ -1,9 +1,11 @@
 package graphs;
 
+import graphs.algos.dfs.DFS;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -32,6 +34,28 @@ public class DiGraphTest {
         Assert.assertEquals(2, diGraph.getAdj(diGraph.getVertices().get(2)).size());
     }
 
+    @Test
+    public void testAddRemoveVertex() {
+        diGraph.addVertex(new Vertex(9));
+        diGraph.addEdge(diGraph.getVertices().get(8), diGraph.getVertices().get(9));
+
+        Assert.assertEquals(10, diGraph.V());
+        Assert.assertEquals(13, diGraph.E());
+
+        diGraph.delVertex(diGraph.getVertices().get(9));
+        Assert.assertEquals(9, diGraph.V());
+        Assert.assertEquals(12, diGraph.E());
+    }
+
+    @Test
+    public void testAddRemoveEdge() {
+        diGraph.delEdge(diGraph.getEdges().get(3));
+        Assert.assertEquals(11, diGraph.E());
+
+        diGraph.addEdge(diGraph.getVertices().get(0), diGraph.getVertices().get(7));
+        Assert.assertEquals(12, diGraph.E());
+    }
+
     private List<Vertex> createVertices() {
         List<Vertex> vertices = new LinkedList<>();
 
@@ -41,6 +65,17 @@ public class DiGraphTest {
 
         return vertices;
     }
+
+    @Test
+    public void testDfs() {
+        DFS dfs = new DFS(diGraph, diGraph.getVertices().get(0));
+        Assert.assertEquals(6, dfs.getCounter());
+
+        dfs = new DFS(diGraph, diGraph.getVertices().get(6));
+        Assert.assertEquals(9, dfs.getCounter());
+    }
+
+
 
     private List<Edge> createEdges(List<Vertex> vertices) {
         LinkedList<Edge> edges = new LinkedList<>();
