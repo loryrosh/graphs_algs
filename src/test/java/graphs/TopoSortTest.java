@@ -1,6 +1,7 @@
 package graphs;
 
 import graphs.algos.toposort.TopoSort;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,8 +21,12 @@ public class TopoSortTest {
     @Test
     public void topoSortTest() {
         TopoSort topoSort = new TopoSort(diGraph);
-        topoSort.getSorted()
-                .forEach(vertex -> System.out.println(vertex.getLabel()));
+
+        System.out.println("The list of CCKs:");
+        topoSort.getCycles()
+                .forEach(System.out::print);
+
+        Assert.assertEquals(3, topoSort.getCycles().size());
     }
 
     private List<Vertex> createVertices() {
@@ -45,8 +50,8 @@ public class TopoSortTest {
 
     private List<Edge> createEdges() {
         LinkedList<Edge> edges = new LinkedList<>();
-        edges.add(new Edge(diGraph.getVertexByLabel("i"),
-                diGraph.getVertexByLabel("j")));
+        edges.add(new Edge(diGraph.getVertexByLabel("j"),
+                diGraph.getVertexByLabel("i")));
         edges.add(new Edge(diGraph.getVertexByLabel("j"),
                 diGraph.getVertexByLabel("k")));
         edges.add(new Edge(diGraph.getVertexByLabel("k"),
