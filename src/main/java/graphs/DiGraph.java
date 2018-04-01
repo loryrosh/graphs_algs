@@ -1,11 +1,13 @@
 package graphs;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
+@Setter
 public class DiGraph {
 
     private List<Vertex> vertices;
@@ -14,6 +16,10 @@ public class DiGraph {
     public DiGraph(List<Vertex> vertices, List<Edge> edges) {
         this.vertices = vertices;
         this.edges = edges;
+    }
+
+    public DiGraph(List<Vertex> vertices) {
+        this.vertices = vertices;
     }
 
     public int V() {

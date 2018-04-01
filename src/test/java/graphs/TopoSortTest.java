@@ -13,14 +13,15 @@ public class TopoSortTest {
 
     @Before
     public void createGraph() {
-        List<Vertex> vertices = createVertices();
-        diGraph = new DiGraph(vertices, createEdges());
+        diGraph = new DiGraph(createVertices());
+        diGraph.setEdges(createEdges());
     }
 
     @Test
     public void topoSortTest() {
         TopoSort topoSort = new TopoSort(diGraph);
-        System.out.println(topoSort.getSorted());
+        topoSort.getSorted()
+                .forEach(vertex -> System.out.println(vertex.getLabel()));
     }
 
     private List<Vertex> createVertices() {
