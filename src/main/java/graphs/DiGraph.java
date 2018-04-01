@@ -3,7 +3,6 @@ package graphs;
 import lombok.Getter;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Getter
@@ -36,10 +35,10 @@ public class DiGraph {
         vertices.add(v);
     }
 
-    public Optional<Vertex> getVertexByLabel(String labelToSearch) {
+    public Vertex getVertexByLabel(String labelToSearch) {
         return vertices.stream()
                 .filter(vertex -> labelToSearch.equals(vertex.getLabel()))
-                .findAny();
+                .findAny().get();
     }
 
     public void delVertex(Vertex v) {
