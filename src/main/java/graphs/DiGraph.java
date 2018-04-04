@@ -68,6 +68,14 @@ public class DiGraph {
         edges.remove(e);
     }
 
+    public void reverse() {
+        edges.forEach(edge -> {
+            Vertex tmp = edge.getHead();
+            edge.setHead(edge.getTail());
+            edge.setTail(tmp);
+        });
+    }
+
     private boolean edgeExists(Vertex head, Vertex tail) {
         return edges.stream()
                 .anyMatch(edge -> edge.getHead().equals(head) && edge.getTail().equals(tail));

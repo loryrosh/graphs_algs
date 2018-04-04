@@ -1,10 +1,12 @@
 package graphs;
 
+import graphs.algos.toposort.SCC;
 import graphs.algos.toposort.TopoSort;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -27,6 +29,20 @@ public class TopoSortTest {
                 .forEach(System.out::print);
 
         Assert.assertEquals(3, topoSort.getCycles().size());
+    }
+
+    @Test
+    public void sccMappingTest() {
+        SCC scc = new SCC(diGraph);
+
+        System.out.println("Number of CCKs: " + scc.getCounterScc());
+        Assert.assertEquals(3, scc.getCounterScc());
+
+        diGraph.getVertices()
+                .forEach(vertex -> {
+                    System.out.println(vertex.getLabel() + ": "
+                            + scc.getSccId()[vertex.getV()]);
+                });
     }
 
     private List<Vertex> createVertices() {
